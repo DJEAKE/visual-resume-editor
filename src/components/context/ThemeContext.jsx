@@ -1,6 +1,5 @@
 import React, { createContext, useState } from "react";
 
-// Создаём и экспортируем ThemeContext как именованный экспорт
 export const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {

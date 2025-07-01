@@ -241,7 +241,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 160px; /* одинаковая ширина */
+  min-width: 160px; 
   min-height: 40px;
 }
 .pdf-btn:hover {
@@ -269,7 +269,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 160px; /* одинаковая ширина */
+  min-width: 160px;
   min-height: 40px;
   margin-left: 8px;
 }
@@ -407,7 +407,5 @@ button {
 @media (max-width: 700px) {
   .resume-editor,
   .preview {
-    /* height: auto !important; */
-    /* overflow-y: visible !important; */
   }
 }

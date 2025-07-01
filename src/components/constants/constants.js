@@ -1,4 +1,3 @@
-// filepath: src/components/constants/constants.js
 export const FONTS = [
   { label: "Inter", value: "Inter, sans-serif" },
   { label: "Roboto", value: "Roboto, sans-serif" },

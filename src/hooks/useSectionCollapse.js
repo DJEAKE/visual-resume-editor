@@ -1,4 +1,3 @@
-// filepath: src/hooks/useSectionCollapse.js
 import { useState } from "react";
 
 export function useSectionCollapse() {
