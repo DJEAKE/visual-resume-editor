@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import html2pdf from "html2pdf.js";
 
 import AboutSectionForm from "./AboutSectionForm";
 import ExperienceSectionForm from "./ExperienceSectionForm";
@@ -9,14 +10,14 @@ import SkillsSectionForm from "./SkillsSectionForm";
 import CertificateSectionForm from "./CertificatesSectionForm";
 
 import { MOCK_AI } from "../utils/mockAIAnswer";
+import { useSectionCollapse } from "../../hooks/useSectionCollapse";
+import ThemeSelector from "../common/ThemeSelector";
+import DragHandle from "../common/DragHandle";
 
-const fonts = [
-  { label: "Georgia", value: "Georgia, serif" },
-  { label: "Arial", value: "Arial, sans-serif" }
-];
-
-export default function ResumeEditor({ sections, setSections, theme, setTheme }) {
+export default function ResumeEditor({ sections, setSections, previewRef }) {
   const [selectedType, setSelectedType] = useState("");
+  const { isCollapsed, setIsCollapsed } = useSectionCollapse();
+  const sectionsContainerRef = useRef(null);
 
   const isSectionExists = (type) => sections.some((sec) => sec.type === type);
 
@@ -29,6 +30,11 @@ export default function ResumeEditor({ sections, setSections, theme, setTheme })
     };
     setSections([...sections, newSection]);
     setSelectedType("");
+    setTimeout(() => {
+      if (sectionsContainerRef.current) {
+        sectionsContainerRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    }, 100);
   };
 
   const updateSection = (id, newData) => {
@@ -51,48 +57,32 @@ export default function ResumeEditor({ sections, setSections, theme, setTheme })
   };
 
   const renderSectionForm = (section) => {
+    const commonProps = {
+      data: section.data,
+      onChange: (newData) => updateSection(section.id, newData),
+      isCollapsed: isCollapsed(section.id),
+      setIsCollapsed: (value) => setIsCollapsed(section.id, value),
+      showAIBtn: !isCollapsed(section.id),
+      onAIClick: () => insertMockAIText(section.id, section.type),
+      onDelete: () => deleteSection(section.id), // добавьте это!
+    };
+
     switch (section.type) {
       case "about":
-        return (
-          <AboutSectionForm
-            data={section.data}
-            onChange={(newData) => updateSection(section.id, newData)}
-          />
-        );
+        return <AboutSectionForm {...commonProps} />;
       case "experience":
-        return (
-          <ExperienceSectionForm
-            data={section.data}
-            onChange={(newData) => updateSection(section.id, newData)}
-          />
-        );
+        return <ExperienceSectionForm {...commonProps} />;
       case "education":
-        return (
-          <EducationSectionForm
-            data={section.data}
-            onChange={(newData) => updateSection(section.id, newData)}
-          />
-        );
+        return <EducationSectionForm {...commonProps} />;
       case "skills":
-        return (
-          <SkillsSectionForm
-            data={section.data}
-            onChange={(newData) => updateSection(section.id, newData)}
-          />
-        );
+        return <SkillsSectionForm {...commonProps} />;
       case "certificates":
-        return (
-          <CertificateSectionForm
-            data={section.data}
-            onChange={(newData) => updateSection(section.id, newData)}
-          />
-        );
-      // Для других типов
+        return <CertificateSectionForm {...commonProps} />;
       default:
         return null;
     }
   };
-  // Drag & Drop handler
+
   const onDragEnd = (result) => {
     if (!result.destination) return;
     const items = Array.from(sections);
@@ -100,33 +90,30 @@ export default function ResumeEditor({ sections, setSections, theme, setTheme })
     items.splice(result.destination.index, 0, reorderedItem);
     setSections(items);
   };
+
+  const handleDownloadPDF = () => {
+    if (!previewRef.current) return;
+    html2pdf()
+      .set({
+        margin: 0.5,
+        filename: "resume.pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+      })
+      .from(previewRef.current)
+      .save();
+  };
+
   return (
     <div className="resume-editor">
       <h2>Редактор резюме</h2>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: 16, gap: 16 }}>
-        <span role="img" aria-label="palette">🎨</span>
-        <input
-          type="color"
-          value={theme.color}
-          onChange={e => setTheme({ ...theme, color: e.target.value })}
-          style={{ width: 32, height: 32, border: "none", background: "none" }}
-        />
-        <select
-          value={theme.font}
-          onChange={e => setTheme({ ...theme, font: e.target.value })}
-        >
-          {fonts.map(f => (
-            <option key={f.label} value={f.value}>{f.label}</option>
-          ))}
-        </select>
-      </div>
-      <div style={{ marginBottom: "1rem" }}>
-        <label htmlFor="section-select">Выберите секцию:</label>
+      <ThemeSelector />
+      <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem", gap: 12 }}>
         <select
           id="section-select"
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          style={{ marginRight: "1rem" }}
+          style={{ marginRight: 0 }}
         >
           <option value="">-- Выберите секцию --</option>
           <option value="about" disabled={isSectionExists("about")}>
@@ -148,21 +135,28 @@ export default function ResumeEditor({ sections, setSections, theme, setTheme })
             {" "}
             📜 Сертификаты
           </option>
-
-          {/* Позже добавим другие опции */}
         </select>
-
         <button
           onClick={addSection}
           disabled={!selectedType || isSectionExists(selectedType)}
+          className="section-add-btn"
         >
-          Добавить секцию
+          + добавить секцию
+        </button>
+        <button
+          onClick={handleDownloadPDF}
+          className="pdf-btn"
+        >
+          <span style={{ fontSize: 18, marginRight: 8 }}>⬇️</span> Скачать как PDF
         </button>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="sections">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div {...provided.droppableProps} ref={el => {
+              provided.innerRef(el);
+              sectionsContainerRef.current = el;
+            }}>
               {sections.map((section, index) => (
                 <Draggable
                   key={section.id}
@@ -175,30 +169,8 @@ export default function ResumeEditor({ sections, setSections, theme, setTheme })
                       {...provided.draggableProps}
                       className={`draggable-section${snapshot.isDragging ? " dragging" : ""}`}
                     >
-                      <div
-                        {...provided.dragHandleProps}
-                        className="drag-handle"
-                        title="Перетащите для сортировки"
-                        style={{ cursor: "grab", display: "inline-block", marginBottom: 8 }}
-                      >
-                        {/* Можно использовать иконку или символ */}
-                        <span style={{ fontSize: 20, opacity: 0.6, marginRight: 8 }}>☰</span>
-                      </div>
+                      <DragHandle dragHandleProps={provided.dragHandleProps} />
                       {renderSectionForm(section)}
-                      <button
-                        onClick={() =>
-                          insertMockAIText(section.id, section.type)
-                        }
-                        style={{ marginTop: "0.5rem", marginRight: "0.5rem" }}
-                      >
-                        AI-подсказка
-                      </button>
-                      <button
-                        onClick={() => deleteSection(section.id)}
-                        style={{ marginTop: "0.5rem" }}
-                      >
-                        Удалить
-                      </button>
                     </div>
                   )}
                 </Draggable>

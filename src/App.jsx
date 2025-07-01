@@ -1,28 +1,22 @@
 import "./styles/App.css";
-import React, { useState } from "react";
-import ResumeEditor from './components/ResumeEditor/ResumeEditor';
-import ResumePreview from './components/ResumePreview/ResumePreview';
-import { useSections } from './hooks/useSections';
+import React, { useRef } from "react";
+import { ThemeProvider } from "./components/context/ThemeContext";
+import ResumeEditor from "./components/ResumeEditor/ResumeEditor";
+import ResumePreview from "./components/ResumePreview/ResumePreview";
+import { useSections } from "./hooks/useSections";
 
 function App() {
-  const [sections, setSections] =  useSections();
-  const [theme, setTheme] = useState({
-    color: "#4f8cff",
-    font: "Inter"
-  });
+  const [sections, setSections] = useSections();
+  const previewRef = useRef();
 
   return (
-    <div className='app-flex-container'>
-      <ResumeEditor
-        sections={sections}
-        setSections={setSections}
-        theme={theme}
-        setTheme={setTheme}
-      />
-      <ResumePreview sections={sections} theme={theme} />
-    </div>
+    <ThemeProvider>
+      <div className="app-flex-container">
+        <ResumeEditor sections={sections} setSections={setSections} previewRef={previewRef} />
+        <ResumePreview sections={sections} previewRef={previewRef} />
+      </div>
+    </ThemeProvider>
   );
-  
 }
 
-export default App
+export default App;

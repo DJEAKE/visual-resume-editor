@@ -36,7 +36,23 @@
   color: #222;
 }
 
-.resume-editor textarea,
+.resume-editor textarea {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  background: #fafbfc;
+  transition: border 0.2s;
+  resize: vertical;
+  min-height: 40px;
+  max-height: 200px;
+  overflow: auto;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
 .resume-editor input,
 .resume-editor select {
   width: 100%;
@@ -83,12 +99,34 @@
 .resume-editor .ai-btn {
   background: #a259ff;
   color: #fff;
-  margin-left: 0;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-top: 8px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.resume-editor .ai-btn:hover {
+  background: #7c3aed;
 }
 
 .resume-editor .delete-btn {
-  background: #ff5c5c;
-  color: #fff;
+  background: #ff5c5c !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.resume-editor .delete-btn:hover {
+  background: #d90429 !important;
 }
 
 .resume-editor .draggable-section {
@@ -106,17 +144,20 @@
 }
 
 .preview {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   flex: 1;
   max-width: 600px;
   margin-left: auto;
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
+  align-items: stretch;
   background: #f8fafd;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  padding: 32px 32px 24px 32px;
-  min-width: 400px;
+  padding: 24px 16px 24px 16px;
   font-family: inherit;
 }
 .preview h1,
@@ -133,8 +174,11 @@
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  padding: 18px 24px;
-  margin-bottom: 18px;
+  padding: 18px 20px 14px 20px;
+  margin-bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
 }
 
 .preview-about h2,
@@ -143,19 +187,21 @@
 .preview-skills h2,
 .preview-certificate h2 {
   color: #4f8cff;
-  font-size: 1.2rem;
-  margin-bottom: 6px;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
   margin-top: 0;
+  font-weight: 700;
 }
 
-.preview-about p,
-.preview-experience p,
-.preview-education p,
-.preview-skills p,
-.preview-certificate p {
+.preview-about div,
+.preview-experience div,
+.preview-education div,
+.preview-skills div,
+.preview-certificate div {
   color: #222;
   font-size: 1rem;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
+  line-height: 1.5;
 }
 
 button {
@@ -170,4 +216,198 @@ button {
 .draggable-section.dragging {
   background: #e3f0ff;
   box-shadow: 0 4px 16px rgba(79,140,255,0.15);
+}
+
+.pdf-btn-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.pdf-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 8px;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px; /* одинаковая ширина */
+  min-height: 40px;
+}
+.pdf-btn:hover {
+  background: #16a34a;
+}
+@media (max-width: 700px) {
+  .pdf-btn {
+    font-size: 0.98rem;
+    padding: 8px 14px;
+    min-height: 36px;
+  }
+}
+
+.section-add-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px; /* одинаковая ширина */
+  min-height: 40px;
+  margin-left: 8px;
+}
+
+.section-add-btn:disabled,
+.pdf-btn:disabled {
+  background: #b1e5c9;
+  cursor: not-allowed;
+}
+
+.section-add-btn:hover,
+.pdf-btn:hover {
+  background: #16a34a;
+}
+
+.resume-editor,
+.preview {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 50vw;
+  box-sizing: border-box;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .app-flex-container {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 0;
+  }
+  .resume-editor,
+  .preview {
+    max-width: 100vw;
+    width: 100%;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 700px) {
+  .app-flex-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px 0;
+  }
+  .resume-editor,
+  .preview {
+    max-width: 100%;
+    min-width: unset;
+    padding: 16px 4vw 12px 4vw;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .resume-editor h2,
+  .preview h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  .resume-editor label {
+    font-size: 0.98rem;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+  .resume-editor textarea,
+  .resume-editor input,
+  .resume-editor select {
+    font-size: 0.98rem;
+    padding: 8px 8px;
+  }
+  .resume-editor button,
+  .pdf-btn {
+    font-size: 0.98rem;
+    padding: 8px 14px;
+  }
+  .draggable-section {
+    padding: 10px 6px 8px 6px;
+    margin-bottom: 10px;
+  }
+  .preview {
+    padding: 12px 2vw 12px 2vw;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    gap: 12px;
+  }
+  .preview-about,
+  .preview-experience,
+  .preview-education,
+  .preview-skills,
+  .preview-certificate {
+    padding: 12px 8px 10px 8px;
+    border-radius: 8px;
+  }
+  .preview-about h2,
+  .preview-experience h2,
+  .preview-education h2,
+  .preview-skills h2,
+  .preview-certificate h2 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+}
+
+/* Мелкие устройства */
+@media (max-width: 480px) {
+  .resume-editor,
+  .preview {
+    padding: 8px 2vw 8px 2vw;
+    border-radius: 6px;
+  }
+  .resume-editor h2,
+  .preview h2 {
+    font-size: 1rem;
+  }
+  .pdf-btn {
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+}
+
+.form-actions-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.form-actions-center button,
+.form-actions-center .ai-btn {
+  min-width: 170px;
+  min-height: 48px;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 700px) {
+  .resume-editor,
+  .preview {
+    /* height: auto !important; */
+    /* overflow-y: visible !important; */
+  }
 }

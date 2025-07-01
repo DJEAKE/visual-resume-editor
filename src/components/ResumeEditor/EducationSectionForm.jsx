@@ -1,30 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
+import SectionFormWrapper from "../common/SectionFormWrapper";
+import AIBtn from "../common/AIBtn";
 
-export default function EducationSectionForm({ data, onChange }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  if (isCollapsed) {
-    // Свернутое отображение
-    return (
-      <div>
-        <h3>🎓 Образование</h3>
-        <div style={{ color: "#555", marginTop: 4 }}>
-          {data.institution} {data.major} {data.period}
-        </div>
-        <button onClick={() => setIsCollapsed(false)} style={{ marginTop: 8 }}>
-          Редактировать
-        </button>
-      </div>
-    );
-  }
+export default function EducationSectionForm({
+  data,
+  onChange,
+  isCollapsed,
+  setIsCollapsed,
+  showAIBtn,
+  onAIClick,
+  onDelete,
+}) {
+  const isValid =
+    data.institution?.trim() &&
+    data.major?.trim() &&
+    data.period?.trim();
+
   return (
-    <div>
-      <h3>🎓 Образование</h3>
+    <SectionFormWrapper
+      title="🎓 Образование"
+      isCollapsed={isCollapsed}
+      setIsCollapsed={setIsCollapsed}
+      summary={`${data.institution || ""} ${data.major || ""} ${data.period || ""}`}
+    >
       <label>Учебное заведение</label>
       <textarea
         value={data.institution || ""}
         onChange={(e) => onChange({ ...data, institution: e.target.value })}
         placeholder="Введите учебное заведение"
         rows={1}
+        style={{ resize: "vertical", minHeight: 32, maxHeight: 120 }}
       />
       <label>Специальность</label>
       <textarea
@@ -32,20 +37,27 @@ export default function EducationSectionForm({ data, onChange }) {
         onChange={(e) => onChange({ ...data, major: e.target.value })}
         placeholder="Введите специальность"
         rows={1}
+        style={{ resize: "vertical", minHeight: 32, maxHeight: 120 }}
       />
       <label>Период обучения</label>
       <textarea
         value={data.period || ""}
         onChange={(e) => onChange({ ...data, period: e.target.value })}
-        placeholder="Введите переиод обучения"
+        placeholder="Введите период обучения"
         rows={1}
+        style={{ resize: "vertical", minHeight: 32, maxHeight: 120 }}
       />
-      <button
-        style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
-        onClick={() => setIsCollapsed(true)}
-      >
-        Сохранить
-      </button>
-    </div>
+      <div className="form-actions-center">
+        <button
+          style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
+          onClick={() => setIsCollapsed(true)}
+          disabled={!isValid}
+        >
+          Сохранить
+        </button>
+        <AIBtn show={showAIBtn} onClick={onAIClick} />
+                <button className="delete-btn" onClick={onDelete}>Удалить</button>
+      </div>
+    </SectionFormWrapper>
   );
 }

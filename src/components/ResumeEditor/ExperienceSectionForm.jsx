@@ -1,27 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+import SectionFormWrapper from "../common/SectionFormWrapper";
+import AIBtn from "../common/AIBtn";
 
-export default function ExperienceSectionForm({ data, onChange }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+export default function ExperienceSectionForm({
+  data,
+  onChange,
+  isCollapsed,
+  setIsCollapsed,
+  showAIBtn,
+  onAIClick,
+  onDelete,
+}) {
+  const isValid =
+    data.position?.trim() &&
+    data.company?.trim() &&
+    data.period?.trim() &&
+    data.experience?.trim();
 
-  if (isCollapsed) {
-    // Свернутое отображение
-    return (
-      <div>
-        <h3>💼 Опыт работы</h3>
-        <div style={{ color: "#555", marginTop: 4 }}>
-          {data.position} {data.company} {data.experience} {data.description}
-        </div>
-        <button onClick={() => setIsCollapsed(false)} style={{ marginTop: 8 }}>
-          Редактировать
-        </button>
-      </div>
-    );
-  }
-
-  // Полная форма
   return (
-    <div>
-      <h3>💼 Опыт работы</h3>
+    <SectionFormWrapper
+      title="💼 Опыт работы"
+      isCollapsed={isCollapsed}
+      setIsCollapsed={setIsCollapsed}
+      summary={`${data.position || ""} ${data.company || ""} ${data.period || ""}`}
+    >
       <label>Должность</label>
       <input
         value={data.position || ""}
@@ -42,16 +44,22 @@ export default function ExperienceSectionForm({ data, onChange }) {
       />
       <label>Описание</label>
       <textarea
-        value={data.experience || data.description || ""}
+        value={data.experience || ""}
         onChange={(e) => onChange({ ...data, experience: e.target.value })}
         placeholder="Введите описание"
+        rows={2}
+        style={{ resize: "vertical", minHeight: 40, maxHeight: 200 }}
       />
-      <button
-        style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
-        onClick={() => setIsCollapsed(true)}
-      >
-        Сохранить
-      </button>
-    </div>
+      <div className="form-actions-center">
+        <button
+          onClick={() => setIsCollapsed(true)}
+          disabled={!isValid}
+        >
+          Сохранить
+        </button>
+        <AIBtn show={showAIBtn} onClick={onAIClick} />
+        <button className="delete-btn" onClick={onDelete}>Удалить</button>
+      </div>
+    </SectionFormWrapper>
   );
 }

@@ -1,36 +1,43 @@
-import React, { useState }from "react";
+import React from "react";
+import SectionFormWrapper from "../common/SectionFormWrapper";
+import AIBtn from "../common/AIBtn";
 
-export default function AboutSectionForm({ data, onChange }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  if (isCollapsed) {
-    // Свернутое отображение
-    return (
-      <div>
-        <h3>👤 О себе</h3>
-        <div style={{ color: "#555", marginTop: 4 }}>
-          {data.text}
-        </div>
-        <button onClick={() => setIsCollapsed(false)} style={{ marginTop: 8 }}>
-          Редактировать
-        </button>
-      </div>
-    );
-  }
+export default function AboutSectionForm({
+  data,
+  onChange,
+  isCollapsed,
+  setIsCollapsed,
+  showAIBtn,
+  onAIClick,
+  onDelete,
+}) {
+  const isValid = data.text?.trim();
+
   return (
-    <div>
-      <h3>👤 О себе</h3>
+    <SectionFormWrapper
+      title="👤 О себе"
+      isCollapsed={isCollapsed}
+      setIsCollapsed={setIsCollapsed}
+      summary={data.text || ""}
+    >
       <textarea
         value={data.text || ""}
         onChange={(e) => onChange({ ...data, text: e.target.value })}
         placeholder="Введите краткую информацию о себе"
-        rows={1}
+        rows={2}
+        style={{ resize: "vertical", minHeight: 40, maxHeight: 200 }}
       />
-      <button
-        style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
-        onClick={() => setIsCollapsed(true)}
-      >
-        Сохранить
-      </button>
-    </div>
+      <div className="form-actions-center">
+        <button
+          style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
+          onClick={() => setIsCollapsed(true)}
+          disabled={!isValid}
+        >
+          Сохранить
+        </button>
+        <AIBtn show={showAIBtn} onClick={onAIClick} />
+        <button className="delete-btn" onClick={onDelete}>Удалить</button>
+      </div>
+    </SectionFormWrapper>
   );
 }

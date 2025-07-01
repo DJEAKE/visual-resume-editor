@@ -1,39 +1,36 @@
-import React, { useRef } from "react";
+import React from "react";
 import PreviewSection from "./PreviewSection";
-import html2pdf from "html2pdf.js";
+import { useTheme } from "../context/useTheme";
 
-export default function ResumePreview({ sections, theme }) {
-  const previewRef = useRef();
-
-  const handleDownloadPDF = () => {
-    if (!previewRef.current) return;
-    html2pdf()
-      .set({
-        margin: 0.5,
-        filename: "resume.pdf",
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-      })
-      .from(previewRef.current)
-      .save();
-  };
+export default function ResumePreview({ sections, previewRef }) {
+  const { theme } = useTheme();
+  const hasSections = sections && sections.length > 0;
 
   return (
     <div>
-      <button onClick={handleDownloadPDF} style={{ marginBottom: "1rem" }}>
-        Скачать как PDF
-      </button>
       <div
-        className="preview"
+        className={hasSections ? "preview" : ""}
         ref={previewRef}
-        style={{
-          "--main-color": theme.color,
-          fontFamily: theme.font,
-        }}
+        style={
+          hasSections
+            ? {
+                "--main-color": theme.color,
+                fontFamily: theme.font,
+                width: "100%",
+                minWidth: 0,
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+              }
+            : {}
+        }
       >
-        {sections.map((section) => (
-          <PreviewSection key={section.id} section={section} />
-        ))}
+        {hasSections
+          ? sections.map((section) => (
+              <PreviewSection key={section.id} section={section} />
+            ))
+          : null}
       </div>
     </div>
   );

@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
+import SectionFormWrapper from "../common/SectionFormWrapper";
+import AIBtn from "../common/AIBtn";
 
-export default function SkillsSectionForm({ data, onChange }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  if (isCollapsed) {
-    // Свернутое отображение
-    return (
-      <div>
-        <h3>⚡ Навыки</h3>
-        <div style={{ color: "#555", marginTop: 4 }}>{data.skill}</div>
-        <button onClick={() => setIsCollapsed(false)} style={{ marginTop: 8 }}>
-          Редактировать
-        </button>
-      </div>
-    );
-  }
+export default function SkillsSectionForm({
+  data,
+  onChange,
+  isCollapsed,
+  setIsCollapsed,
+  showAIBtn,
+  onAIClick,
+  onDelete,
+}) {
+  const isValid = data.skill?.trim();
+
   return (
-    <div>
-      <h3>⚡ Навыки</h3>
+    <SectionFormWrapper
+      title="⚡ Навыки"
+      isCollapsed={isCollapsed}
+      setIsCollapsed={setIsCollapsed}
+      summary={data.skill || ""}
+    >
       <textarea
         value={data.skill || ""}
         onChange={(e) => onChange({ ...data, skill: e.target.value })}
         placeholder="Введите навыки которыми владеете"
+        rows={2}
+        style={{ resize: "vertical", minHeight: 32, maxHeight: 120 }}
       />
-      <button
-        style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
-        onClick={() => setIsCollapsed(true)}
-      >
-        Сохранить
-      </button>
-    </div>
+      <div className="form-actions-center">
+        <button
+          style={{ marginTop: 8, background: "#4f8cff", color: "#fff" }}
+          onClick={() => setIsCollapsed(true)}
+          disabled={!isValid}
+        >
+          Сохранить
+        </button>
+        <AIBtn show={showAIBtn} onClick={onAIClick} />
+        <button className="delete-btn" onClick={onDelete}>Удалить</button>
+      </div>
+    </SectionFormWrapper>
   );
 }
