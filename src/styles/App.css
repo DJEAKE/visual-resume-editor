@@ -4,14 +4,105 @@
   justify-content: space-between;
   gap: 40px;
   width: 100%;
+  min-height: 100vh;
+  background: #f6f7fa;
+  padding: 32px 0;
 }
 
 .resume-editor {
   flex: 1;
-  max-width: 500px;
+  max-width: 520px;
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 32px 32px 24px 32px;
+  margin-left: 32px;
+}
+
+.resume-editor h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.resume-editor label {
+  font-weight: 500;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  display: block;
+  color: #222;
+}
+
+.resume-editor textarea,
+.resume-editor input,
+.resume-editor select {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  background: #fafbfc;
+  transition: border 0.2s;
+  resize: none;
+}
+
+.resume-editor textarea:focus,
+.resume-editor input:focus,
+.resume-editor select:focus {
+  border: 1.5px solid #4f8cff;
+  outline: none;
+  background: #fff;
+}
+
+.resume-editor button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-top: 12px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.resume-editor button:not(:disabled) {
+  background: #4f8cff;
+  color: #fff;
+}
+
+.resume-editor button:disabled {
+  background: #e0e0e0;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.resume-editor .ai-btn {
+  background: #a259ff;
+  color: #fff;
+  margin-left: 0;
+}
+
+.resume-editor .delete-btn {
+  background: #ff5c5c;
+  color: #fff;
+}
+
+.resume-editor .draggable-section {
+  background: #f7f8fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  padding: 18px 18px 12px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.resume-editor .draggable-section:active,
+.resume-editor .draggable-section:focus-within {
+  border: 1.5px solid #4f8cff;
 }
 
 .preview {
@@ -21,4 +112,46 @@
   align-items: flex-end;
   display: flex;
   flex-direction: column;
+  background: #f8fafd;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 32px 32px 24px 32px;
+  min-width: 400px;
+}
+
+.preview-about,
+.preview-experience,
+.preview-education,
+.preview-skills,
+.preview-certificate {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  padding: 18px 24px;
+  margin-bottom: 18px;
+}
+
+.preview-about h2,
+.preview-experience h2,
+.preview-education h2,
+.preview-skills h2,
+.preview-certificate h2 {
+  color: #4f8cff;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  margin-top: 0;
+}
+
+.preview-about p,
+.preview-experience p,
+.preview-education p,
+.preview-skills p,
+.preview-certificate p {
+  color: #222;
+  font-size: 1rem;
+  margin: 0 0 10px 0;
+}
+
+button {
+  font-family: inherit;
 }

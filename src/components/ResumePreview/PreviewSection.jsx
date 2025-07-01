@@ -1,5 +1,4 @@
 import React from "react";
-import "../../styles/ResumePreview.css";
 
 export default function PreviewSection({ section }) {
   switch (section.type) {

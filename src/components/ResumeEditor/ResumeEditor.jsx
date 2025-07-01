@@ -108,23 +108,23 @@ export default function ResumeEditor({ sections, setSections }) {
         >
           <option value="">-- Выберите секцию --</option>
           <option value="about" disabled={isSectionExists("about")}>
-            О себе
+            👤 О себе
           </option>
           <option value="experience" disabled={isSectionExists("experience")}>
             {" "}
-            Опыт работы
+            💼 Опыт работы
           </option>
           <option value="education" disabled={isSectionExists("education")}>
             {" "}
-            Образование
+            🎓 Образование
           </option>
           <option value="skills" disabled={isSectionExists("skills")}>
             {" "}
-            Навыки
+            ⚡ Навыки
           </option>
           <option value="certificates" disabled={isSectionExists("certificates")}>
             {" "}
-            Сертификаты
+            📜 Сертификаты
           </option>
 
           {/* Позже добавим другие опции */}
