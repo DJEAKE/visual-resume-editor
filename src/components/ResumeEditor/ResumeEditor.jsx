@@ -10,7 +10,12 @@ import CertificateSectionForm from "./CertificatesSectionForm";
 
 import { MOCK_AI } from "../utils/mockAIAnswer";
 
-export default function ResumeEditor({ sections, setSections }) {
+const fonts = [
+  { label: "Georgia", value: "Georgia, serif" },
+  { label: "Arial", value: "Arial, sans-serif" }
+];
+
+export default function ResumeEditor({ sections, setSections, theme, setTheme }) {
   const [selectedType, setSelectedType] = useState("");
 
   const isSectionExists = (type) => sections.some((sec) => sec.type === type);
@@ -98,6 +103,23 @@ export default function ResumeEditor({ sections, setSections }) {
   return (
     <div className="resume-editor">
       <h2>Редактор резюме</h2>
+      <div style={{ display: "flex", alignItems: "center", marginBottom: 16, gap: 16 }}>
+        <span role="img" aria-label="palette">🎨</span>
+        <input
+          type="color"
+          value={theme.color}
+          onChange={e => setTheme({ ...theme, color: e.target.value })}
+          style={{ width: 32, height: 32, border: "none", background: "none" }}
+        />
+        <select
+          value={theme.font}
+          onChange={e => setTheme({ ...theme, font: e.target.value })}
+        >
+          {fonts.map(f => (
+            <option key={f.label} value={f.value}>{f.label}</option>
+          ))}
+        </select>
+      </div>
       <div style={{ marginBottom: "1rem" }}>
         <label htmlFor="section-select">Выберите секцию:</label>
         <select
@@ -151,15 +173,17 @@ export default function ResumeEditor({ sections, setSections }) {
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={{
-                        border: "1px solid #ccc",
-                        marginBottom: "1rem",
-                        padding: "1rem",
-                        background: snapshot.isDragging ? "#f0f0f0" : "#fff",
-                        ...provided.draggableProps.style,
-                      }}
+                      className={`draggable-section${snapshot.isDragging ? " dragging" : ""}`}
                     >
+                      <div
+                        {...provided.dragHandleProps}
+                        className="drag-handle"
+                        title="Перетащите для сортировки"
+                        style={{ cursor: "grab", display: "inline-block", marginBottom: 8 }}
+                      >
+                        {/* Можно использовать иконку или символ */}
+                        <span style={{ fontSize: 20, opacity: 0.6, marginRight: 8 }}>☰</span>
+                      </div>
                       {renderSectionForm(section)}
                       <button
                         onClick={() =>

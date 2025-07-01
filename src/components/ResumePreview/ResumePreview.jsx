@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import PreviewSection from "./PreviewSection";
 import html2pdf from "html2pdf.js";
 
-export default function ResumePreview({ sections }) {
+export default function ResumePreview({ sections, theme }) {
   const previewRef = useRef();
 
   const handleDownloadPDF = () => {
@@ -23,7 +23,14 @@ export default function ResumePreview({ sections }) {
       <button onClick={handleDownloadPDF} style={{ marginBottom: "1rem" }}>
         Скачать как PDF
       </button>
-      <div className="preview" ref={previewRef}>
+      <div
+        className="preview"
+        ref={previewRef}
+        style={{
+          "--main-color": theme.color,
+          fontFamily: theme.font,
+        }}
+      >
         {sections.map((section) => (
           <PreviewSection key={section.id} section={section} />
         ))}
