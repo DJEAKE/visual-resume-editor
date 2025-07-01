@@ -45,7 +45,9 @@ export default function CertificatesSectionForm({
           Сохранить
         </button>
         <AIBtn show={showAIBtn} onClick={onAIClick} />
-                <button className="delete-btn" onClick={onDelete}>Удалить</button>
+        <button className="delete-btn" onClick={onDelete}>
+          Удалить
+        </button>
       </div>
     </SectionFormWrapper>
   );

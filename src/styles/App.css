@@ -17,7 +17,7 @@
   flex-direction: column;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   padding: 32px 32px 24px 32px;
   margin-left: 32px;
 }
@@ -135,7 +135,7 @@
   border-radius: 12px;
   margin-bottom: 18px;
   padding: 18px 18px 12px 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .resume-editor .draggable-section:active,
@@ -156,10 +156,11 @@
   align-items: stretch;
   background: #f8fafd;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   padding: 24px 16px 24px 16px;
   font-family: inherit;
 }
+
 .preview h1,
 .preview h2,
 .preview .main-title {
@@ -173,7 +174,7 @@
 .preview-certificate {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   padding: 18px 20px 14px 20px;
   margin-bottom: 0;
   width: 100%;
@@ -215,7 +216,7 @@ button {
 
 .draggable-section.dragging {
   background: #e3f0ff;
-  box-shadow: 0 4px 16px rgba(79,140,255,0.15);
+  box-shadow: 0 4px 16px rgba(79, 140, 255, 0.15);
 }
 
 .pdf-btn-center {
@@ -235,18 +236,20 @@ button {
   font-size: 1rem;
   font-weight: 600;
   margin-left: 8px;
-  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.08);
   cursor: pointer;
   transition: background 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 160px; 
+  min-width: 160px;
   min-height: 40px;
 }
+
 .pdf-btn:hover {
   background: #16a34a;
 }
+
 @media (max-width: 700px) {
   .pdf-btn {
     font-size: 0.98rem;
@@ -263,7 +266,7 @@ button {
   padding: 10px 24px;
   font-size: 1rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.08);
   cursor: pointer;
   transition: background 0.2s;
   display: flex;
@@ -300,6 +303,7 @@ button {
     gap: 24px;
     padding: 24px 0;
   }
+
   .resume-editor,
   .preview {
     max-width: 100vw;
@@ -314,46 +318,54 @@ button {
     gap: 16px;
     padding: 12px 0;
   }
+
   .resume-editor,
   .preview {
     max-width: 100%;
     min-width: unset;
     padding: 16px 4vw 12px 4vw;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
+
   .resume-editor h2,
   .preview h2 {
     font-size: 1.2rem;
     margin-bottom: 12px;
   }
+
   .resume-editor label {
     font-size: 0.98rem;
     margin-top: 12px;
     margin-bottom: 4px;
   }
+
   .resume-editor textarea,
   .resume-editor input,
   .resume-editor select {
     font-size: 0.98rem;
     padding: 8px 8px;
   }
+
   .resume-editor button,
   .pdf-btn {
     font-size: 0.98rem;
     padding: 8px 14px;
   }
+
   .draggable-section {
     padding: 10px 6px 8px 6px;
     margin-bottom: 10px;
   }
+
   .preview {
     padding: 12px 2vw 12px 2vw;
     max-width: 100%;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     gap: 12px;
   }
+
   .preview-about,
   .preview-experience,
   .preview-education,
@@ -362,6 +374,7 @@ button {
     padding: 12px 8px 10px 8px;
     border-radius: 8px;
   }
+
   .preview-about h2,
   .preview-experience h2,
   .preview-education h2,
@@ -374,15 +387,18 @@ button {
 
 /* Мелкие устройства */
 @media (max-width: 480px) {
+
   .resume-editor,
   .preview {
     padding: 8px 2vw 8px 2vw;
     border-radius: 6px;
   }
+
   .resume-editor h2,
   .preview h2 {
     font-size: 1rem;
   }
+
   .pdf-btn {
     font-size: 0.95rem;
     padding: 8px 10px;
@@ -405,7 +421,7 @@ button {
 }
 
 @media (max-width: 700px) {
+
   .resume-editor,
-  .preview {
-  }
+  .preview {}
 }

@@ -13,7 +13,9 @@ export default function AIBtn({ show, onClick, style }) {
       }}
       onClick={onClick}
     >
-      <span role="img" aria-label="ai" style={{ marginRight: 4 }}>✨</span>
+      <span role="img" aria-label="ai" style={{ marginRight: 4 }}>
+        ✨
+      </span>
       AI-подсказка
     </button>
   );

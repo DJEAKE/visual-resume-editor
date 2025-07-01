@@ -7,9 +7,7 @@ export default function PreviewSection({ section }) {
       return (
         <SectionPreview
           title="О себе"
-          fields={[
-            { value: section.data.text }
-          ]}
+          fields={[{ value: section.data.text }]}
         />
       );
     case "experience":
@@ -20,7 +18,7 @@ export default function PreviewSection({ section }) {
             { label: "Должность", value: section.data.position },
             { label: "Компания", value: section.data.company },
             { label: "Период", value: section.data.period },
-            { label: "Описание", value: section.data.experience }
+            { label: "Описание", value: section.data.experience },
           ]}
         />
       );
@@ -31,7 +29,7 @@ export default function PreviewSection({ section }) {
           fields={[
             { label: "Учебное заведение", value: section.data.institution },
             { label: "Специальность", value: section.data.major },
-            { label: "Период", value: section.data.period }
+            { label: "Период", value: section.data.period },
           ]}
         />
       );
@@ -39,9 +37,7 @@ export default function PreviewSection({ section }) {
       return (
         <SectionPreview
           title="Навыки"
-          fields={[
-            { value: section.data.skill }
-          ]}
+          fields={[{ value: section.data.skill }]}
         />
       );
     case "certificates":
@@ -50,7 +46,7 @@ export default function PreviewSection({ section }) {
           title="Сертификат"
           fields={[
             { label: "Название", value: section.data.certificate },
-            { label: "Период", value: section.data.period }
+            { label: "Период", value: section.data.period },
           ]}
         />
       );

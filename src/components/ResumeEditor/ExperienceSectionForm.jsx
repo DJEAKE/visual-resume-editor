@@ -22,7 +22,9 @@ export default function ExperienceSectionForm({
       title="💼 Опыт работы"
       isCollapsed={isCollapsed}
       setIsCollapsed={setIsCollapsed}
-      summary={`${data.position || ""} ${data.company || ""} ${data.period || ""}`}
+      summary={`${data.position || ""} ${data.company || ""} ${
+        data.period || ""
+      }`}
     >
       <label>Должность</label>
       <input
@@ -51,14 +53,13 @@ export default function ExperienceSectionForm({
         style={{ resize: "vertical", minHeight: 40, maxHeight: 200 }}
       />
       <div className="form-actions-center">
-        <button
-          onClick={() => setIsCollapsed(true)}
-          disabled={!isValid}
-        >
+        <button onClick={() => setIsCollapsed(true)} disabled={!isValid}>
           Сохранить
         </button>
         <AIBtn show={showAIBtn} onClick={onAIClick} />
-        <button className="delete-btn" onClick={onDelete}>Удалить</button>
+        <button className="delete-btn" onClick={onDelete}>
+          Удалить
+        </button>
       </div>
     </SectionFormWrapper>
   );

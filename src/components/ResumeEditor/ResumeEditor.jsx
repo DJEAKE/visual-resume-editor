@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import html2pdf from "html2pdf.js";
@@ -32,7 +32,10 @@ export default function ResumeEditor({ sections, setSections, previewRef }) {
     setSelectedType("");
     setTimeout(() => {
       if (sectionsContainerRef.current) {
-        sectionsContainerRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+        sectionsContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
       }
     }, 100);
   };
@@ -108,7 +111,14 @@ export default function ResumeEditor({ sections, setSections, previewRef }) {
     <div className="resume-editor">
       <h2>Редактор резюме</h2>
       <ThemeSelector />
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem", gap: 12 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "1rem",
+          gap: 12,
+        }}
+      >
         <select
           id="section-select"
           value={selectedType}
@@ -131,7 +141,10 @@ export default function ResumeEditor({ sections, setSections, previewRef }) {
             {" "}
             ⚡ Навыки
           </option>
-          <option value="certificates" disabled={isSectionExists("certificates")}>
+          <option
+            value="certificates"
+            disabled={isSectionExists("certificates")}
+          >
             {" "}
             📜 Сертификаты
           </option>
@@ -143,20 +156,21 @@ export default function ResumeEditor({ sections, setSections, previewRef }) {
         >
           + добавить секцию
         </button>
-        <button
-          onClick={handleDownloadPDF}
-          className="pdf-btn"
-        >
-          <span style={{ fontSize: 18, marginRight: 8 }}>⬇️</span> Скачать как PDF
+        <button onClick={handleDownloadPDF} className="pdf-btn">
+          <span style={{ fontSize: 18, marginRight: 8 }}>⬇️</span> Скачать как
+          PDF
         </button>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="sections">
           {(provided) => (
-            <div {...provided.droppableProps} ref={el => {
-              provided.innerRef(el);
-              sectionsContainerRef.current = el;
-            }}>
+            <div
+              {...provided.droppableProps}
+              ref={(el) => {
+                provided.innerRef(el);
+                sectionsContainerRef.current = el;
+              }}
+            >
               {sections.map((section, index) => (
                 <Draggable
                   key={section.id}
@@ -167,7 +181,9 @@ export default function ResumeEditor({ sections, setSections, previewRef }) {
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      className={`draggable-section${snapshot.isDragging ? " dragging" : ""}`}
+                      className={`draggable-section${
+                        snapshot.isDragging ? " dragging" : ""
+                      }`}
                     >
                       <DragHandle dragHandleProps={provided.dragHandleProps} />
                       {renderSectionForm(section)}

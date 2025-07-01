@@ -12,16 +12,16 @@ export default function EducationSectionForm({
   onDelete,
 }) {
   const isValid =
-    data.institution?.trim() &&
-    data.major?.trim() &&
-    data.period?.trim();
+    data.institution?.trim() && data.major?.trim() && data.period?.trim();
 
   return (
     <SectionFormWrapper
       title="🎓 Образование"
       isCollapsed={isCollapsed}
       setIsCollapsed={setIsCollapsed}
-      summary={`${data.institution || ""} ${data.major || ""} ${data.period || ""}`}
+      summary={`${data.institution || ""} ${data.major || ""} ${
+        data.period || ""
+      }`}
     >
       <label>Учебное заведение</label>
       <textarea
@@ -56,7 +56,9 @@ export default function EducationSectionForm({
           Сохранить
         </button>
         <AIBtn show={showAIBtn} onClick={onAIClick} />
-                <button className="delete-btn" onClick={onDelete}>Удалить</button>
+        <button className="delete-btn" onClick={onDelete}>
+          Удалить
+        </button>
       </div>
     </SectionFormWrapper>
   );

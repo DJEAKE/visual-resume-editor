@@ -12,7 +12,11 @@ function App() {
   return (
     <ThemeProvider>
       <div className="app-flex-container">
-        <ResumeEditor sections={sections} setSections={setSections} previewRef={previewRef} />
+        <ResumeEditor
+          sections={sections}
+          setSections={setSections}
+          previewRef={previewRef}
+        />
         <ResumePreview sections={sections} previewRef={previewRef} />
       </div>
     </ThemeProvider>

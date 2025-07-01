@@ -1,4 +1,10 @@
-export default function SectionFormWrapper({ title, isCollapsed, setIsCollapsed, summary, children }) {
+export default function SectionFormWrapper({
+  title,
+  isCollapsed,
+  setIsCollapsed,
+  summary,
+  children,
+}) {
   if (isCollapsed) {
     return (
       <div>
