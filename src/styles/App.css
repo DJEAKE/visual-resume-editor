@@ -1,0 +1,24 @@
+.app-flex-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+}
+
+.resume-editor {
+  flex: 1;
+  max-width: 500px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview {
+  flex: 1;
+  max-width: 600px;
+  margin-left: auto;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
